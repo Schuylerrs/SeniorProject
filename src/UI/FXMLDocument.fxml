@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1537.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="UI.FXMLDocumentController">
+  <children>
+    <ImageView fx:id="imgBefore" fitHeight="591.5" fitWidth="431.3333740234375" layoutX="33.0" layoutY="40.0" pickOnBounds="true" preserveRatio="false" />
+    <ImageView fx:id="imgAfter" fitHeight="591.5" fitWidth="431.3333740234375" layoutX="482.0" layoutY="40.0" pickOnBounds="true" preserveRatio="false" />
+    <TextArea fx:id="txtPreview" layoutX="933.0" layoutY="40.0" prefHeight="603.0" prefWidth="429.0" wrapText="true" />
+    <Button fx:id="btnOpen" layoutX="1382.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickOpen" prefWidth="116.0" text="Open" />
+    <Button fx:id="btnPreprocess" layoutX="1382.0" layoutY="71.0" mnemonicParsing="false" onAction="#clickPreprocess" prefWidth="116.0" text="Preprocess" />
+    <Button fx:id="btnRead" layoutX="1382.0" layoutY="102.0" mnemonicParsing="false" onAction="#clickRead" prefWidth="116.0" text="Read" />
+    <Button fx:id="btnSave" layoutX="1382.0" layoutY="134.0" mnemonicParsing="false" onAction="#clickSave" prefWidth="116.0" text="Save" />
+    <Slider fx:id="sldNoiseReduction" layoutX="1370.0" layoutY="205.0" majorTickUnit="1.0" max="5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" />
+    <Label layoutX="1374.0" layoutY="185.0" text="Noise Reduction" />
+    <Slider fx:id="sldNumRows" disable="false" layoutX="1370.0" layoutY="284.0" majorTickUnit="2.0" max="20.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+    <Label layoutX="1373.0" layoutY="264.0" text="Number of Chunks" />
+    <CheckBox fx:id="chkAutoChunk" layoutX="1374.0" layoutY="336.0" mnemonicParsing="false" onAction="#clickAutoChunk" text="Auto Chunk" />
+    <Button id="btnSave" fx:id="btnSaveImage" layoutX="1378.0" layoutY="375.0" mnemonicParsing="false" onAction="#clickSaveImage" prefWidth="116.0" text="Save Image" />
+    <Button fx:id="btnAndImage" layoutX="1378.0" layoutY="412.0" mnemonicParsing="false" onAction="#clickAndImage" prefWidth="116.0" text="And Image" />
+    <Button id="btnAndImage" fx:id="btnTrain" layoutX="1382.0" layoutY="473.0" mnemonicParsing="false" onAction="#clickTrain" prefWidth="116.0" text="Train Learner" />
+    <Button id="btnAndImage" fx:id="btnAddTraining" layoutX="1382.0" layoutY="508.0" mnemonicParsing="false" onAction="#clickAddTraining" prefWidth="116.0" text="Add Training" />
+    <Button id="btnSaveLearner" layoutX="1382.0" layoutY="543.0" mnemonicParsing="false" onAction="#clickSaveLearner" prefWidth="116.0" text="Save Learner" />
+    <Button id="btnLoadLearner" layoutX="1382.0" layoutY="577.0" mnemonicParsing="false" onAction="#clickLoadLearner" prefWidth="116.0" text="Load Learner" />
+    <Separator layoutX="1381.0" layoutY="457.0" prefWidth="110.0" />
+    <Separator layoutX="1381.0" layoutY="174.0" prefWidth="110.0" />
+    <Label id="lblTime" layoutX="933.0" layoutY="652.0" text="Time Elapsed:" />
+    <Label fx:id="lblTime" layoutX="1024.0" layoutY="652.0" text="" />
+    <Label layoutX="1130.0" layoutY="652.0" text="Letter Count" />
+    <Label fx:id="lblCount" layoutX="1222.0" layoutY="652.0" text="" />
+  </children>
+</AnchorPane>
