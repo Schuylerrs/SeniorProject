@@ -9,16 +9,10 @@ package Containers;
 import Preprocess.Rotator;
 import Reader.Classifyer;
 import Reader.Segmenter;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -27,14 +21,9 @@ import javax.imageio.ImageIO;
 class Word 
 {
     private List<BufferedImage> letters;
-    private final int lineNum;
-    private final int wordNum;
-    private static int splits = 0;
     
-    public Word(BufferedImage input, int lineNum, int wordNum)
+    public Word(BufferedImage input)
     {
-        this.lineNum = lineNum;
-        this.wordNum = wordNum;
         letters = Segmenter.splitHorizontally(input, 0);
     }
     
@@ -68,20 +57,9 @@ class Word
         
         letters = newLetters;
         
-        int tempNum = 0;
         for(BufferedImage letter : letters)
         {            
             letter = trimLetter(letter);
-//            File outputWordfile = new File("C:\\Users\\Schuyler\\Pictures\\Rows\\row" + lineNum + "word" + wordNum + "letter" + tempNum++ + ".png");
-//            
-//            try 
-//            {
-//                ImageIO.write(letter, "png", outputWordfile);            
-//            } 
-//            catch (Exception ex) 
-//            {
-//                Logger.getLogger(Segmenter.class.getName()).log(Level.SEVERE, null, ex);
-//            }
         }
     }
     
@@ -110,7 +88,6 @@ class Word
         
         if (newHeight < 5)
         {
-            System.out.println("here is a small letter");
             return letter;
         }
         
@@ -140,34 +117,13 @@ class Word
     }
     
     public List<BufferedImage> trySplit(BufferedImage input)
-    {
-        File outputWordfile = new File("C:\\Users\\Schuyler\\Pictures\\Rows\\triedToSplit" + splits++ + ".png");
-        try 
-        {
-            ImageIO.write(input, "png", outputWordfile);
-        } 
-        catch (IOException ex) 
-        {
-            Logger.getLogger(Segmenter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    {        
         List<BufferedImage> temp = new ArrayList<>();
         
         BufferedImage italic = Rotator.rotateImage(input, -6);
         Segmenter.trimEdge(italic);
         List<BufferedImage> split = Segmenter.splitHorizontally(italic, 0);
         
-//        outputWordfile = new File("C:\\Users\\Schuyler\\Pictures\\Rows\\triedToSplit" + splits++ + "rotated.png");
-//        try 
-//        {
-//            ImageIO.write(italic, "png", outputWordfile);
-//        } 
-//        catch (IOException ex) 
-//        {
-//            Logger.getLogger(Segmenter.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-        // TODO: Make another attempt to split the letters
         if (split.size() > 1)
         {
             for (BufferedImage letter : split)

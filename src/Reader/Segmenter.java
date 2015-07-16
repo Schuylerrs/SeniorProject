@@ -22,28 +22,7 @@ import javax.imageio.ImageIO;
  */
 public class Segmenter 
 {
-    public static String segment(BufferedImage input)
-    {
-        List<BufferedImage> lines = getTextRows(input);
-        int i = 0;
-        for(BufferedImage line : lines)
-        {
-            i++;
-            File outputfile = new File("C:\\Users\\Schuyler\\Pictures\\Rows\\row" + i + ".png");
-            try 
-            {
-                ImageIO.write(line, "png", outputfile);
-            } 
-            catch (IOException ex) 
-            {
-                Logger.getLogger(Segmenter.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        return "foo";
-    }
-    
-    public static List<BufferedImage> getWords(BufferedImage input)
+      public static List<BufferedImage> getWords(BufferedImage input)
     {
         List<Integer> gaps = getGaps(input);
         float sum = 0;
@@ -86,7 +65,6 @@ public class Segmenter
                 
                 if (gapSize > threshold)
                 {
-                    System.out.println("x: " + x + " pieceSize: " + pieceSize + " gapSize: " + gapSize + " Image Size " + width);
                     if (pieceSize > 0)
                     {
                         pieces.add(input.getSubimage(x - (pieceSize + gapSize), 0, pieceSize, height));

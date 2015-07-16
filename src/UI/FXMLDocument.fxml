@@ -15,7 +15,7 @@
     <Button fx:id="btnOpen" layoutX="1382.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickOpen" prefWidth="116.0" text="Open" />
     <Button fx:id="btnPreprocess" layoutX="1382.0" layoutY="71.0" mnemonicParsing="false" onAction="#clickPreprocess" prefWidth="116.0" text="Preprocess" />
     <Button fx:id="btnRead" layoutX="1382.0" layoutY="102.0" mnemonicParsing="false" onAction="#clickRead" prefWidth="116.0" text="Read" />
-    <Button fx:id="btnSave" layoutX="1382.0" layoutY="134.0" mnemonicParsing="false" onAction="#clickSave" prefWidth="116.0" text="Save" />
+    <Button fx:id="btnSave" layoutX="1382.0" layoutY="134.0" mnemonicParsing="false" onAction="#clickSave" prefWidth="116.0" text="Save Text" />
     <Slider fx:id="sldNoiseReduction" layoutX="1370.0" layoutY="205.0" majorTickUnit="1.0" max="5.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" />
     <Label layoutX="1374.0" layoutY="185.0" text="Noise Reduction" />
     <Slider fx:id="sldNumRows" disable="false" layoutX="1370.0" layoutY="284.0" majorTickUnit="2.0" max="20.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />

@@ -22,6 +22,7 @@ public class Page
     public Page(BufferedImage input)
     {
         lines = new ArrayList<>();
+        // Split the page into rows and make a line object for each one
         List<BufferedImage> tempLines = getTextRows(input);
         List<Integer> sizes = new ArrayList<>();
         for(BufferedImage line : tempLines)
@@ -31,6 +32,9 @@ public class Page
             sizes.addAll(newLine.getLetterSizes());
         }
         
+        // Get the size of each letter and find the mean and std deviation so
+        // that we can guess which letters are merged together and attempt to
+        // split them
         float sum = 0;
         float mean;
         float threshold;

@@ -13,7 +13,6 @@ import Reader.Classifyer;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -151,10 +150,6 @@ public class FXMLDocumentController implements Initializable
         processedImage = Thresholder.andImage(temp1, processedImage);
         temp1 = Preprocessor.preprocess(srcImage, 15, noiseLevel);
         processedImage = Thresholder.andImage(temp1, processedImage);
-//        temp1 = Preprocessor.preprocess(srcImage, 55, noiseLevel);
-//        processedImage = Thresholder.andImage(temp1, processedImage);
-        //temp1 = Preprocessor.preprocess(srcImage, 95, noiseLevel);
-        //processedImage = Thresholder.andImage(temp1, processedImage);
         imgAfter.setImage(SwingFXUtils.toFXImage(processedImage, null));
     }
     
@@ -177,9 +172,9 @@ public class FXMLDocumentController implements Initializable
         Page test = new Page(processedImage);
         try {
             Classifyer.trainClassifyer(test.getLetters());
-            txtPreview.setText("trained");
+            txtPreview.setText("Trained");
         } catch (Exception ex) {
-            txtPreview.setText("failed to train\n" + ex.toString());
+            txtPreview.setText("Failed to train\n" + ex.toString());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
@@ -192,7 +187,7 @@ public class FXMLDocumentController implements Initializable
             Classifyer.addData(test.getLetters());
             txtPreview.setText("Training Added");
         } catch (Exception ex) {
-            txtPreview.setText("failed to add\n" + ex.toString());            
+            txtPreview.setText("Failed to add\n" + ex.toString());            
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -202,12 +197,14 @@ public class FXMLDocumentController implements Initializable
     private void clickSaveLearner(ActionEvent event)
     {
         Classifyer.save();
+        txtPreview.setText("Classifyer Saved");
     }
     
     @FXML
     private void clickLoadLearner(ActionEvent event)
     {
         Classifyer.load();
+        txtPreview.setText("Classifyer Loader");
     }
     
     @Override

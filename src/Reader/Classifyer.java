@@ -42,7 +42,6 @@ public class Classifyer implements Serializable {
                                                 "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", 
                                                 "9", "0", ".", "?", "#", "@", "!", "$", "%", "(", 
                                                 ":", ")", ";", "\'", "&", "\"", "\""};
-    private static Attribute letterAttribute;
     private static final int ATT_COUNT = 512 + ((32 + 16) * 2);
     
     public static void trainClassifyer(List<BufferedImage> images) throws Exception
