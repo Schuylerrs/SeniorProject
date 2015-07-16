@@ -96,7 +96,6 @@ public class Segmenter
     
     public static List<Integer> getGaps(BufferedImage input)
     {
-        int height = input.getHeight();
         int width = input.getWidth();
         List<Integer> gaps = new ArrayList<>();
         WritableRaster raster = input.getRaster();
