@@ -14,11 +14,17 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 
 /**
- *
+ * Used for converting the image to black and white.
  * @author Schuyler
  */
 public class Thresholder 
 {    
+
+    /**
+     * Takes the image, creates a histogram of it, then converts it to black and white
+     * @param sourceImage - The image to threshold
+     * @return The thresholded image
+     */
     public static BufferedImage thresholdImage(BufferedImage sourceImage)
     {
         BufferedImage processedImage = toGrayScale(sourceImage);
@@ -28,6 +34,13 @@ public class Thresholder
         return toBitmap(processedImage, threshold);
     }
     
+    /**
+     * The Otsu method for image thresholding.
+     * More information here: http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
+     * And more here: https://en.wikipedia.org/wiki/Otsu%27s_method
+     * @param data
+     * @return
+     */
     public static int Otsu(int [] data ) 
     {
         int curThresh;        
@@ -80,12 +93,23 @@ public class Thresholder
         return optThresh;
     }
     
+    /**
+     * Converts the image to grey scale then passes the byte array to the other
+     * histogram function
+     * @param srcImage - The image to base the histogram off of
+     * @return An array of ints representing the histogram.
+     */
     public static int[] getHistogram(BufferedImage srcImage)
     {
         BufferedImage processedImage = toGrayScale(srcImage);
         return getHistogram(toByteArray(processedImage));
     }
     
+    /**
+     * Produces a histogram of the different RGB values
+     * @param greyImage - The image converted to grey scale
+     * @return An array of ints representing the histogram.
+     */
     private static int[] getHistogram(byte[] greyImage)
     {
         int ptr = 0;
@@ -103,7 +127,11 @@ public class Thresholder
         
         return histData;
     }
-    
+     /**
+      * Converts the image to grey scale
+      * @param input The image to convert
+      * @return The grey scale image
+      */
     private static BufferedImage toGrayScale(BufferedImage input)
     {
         BufferedImage greyImage = new BufferedImage(input.getWidth(), 
@@ -116,6 +144,11 @@ public class Thresholder
         return greyImage;
     }
     
+    /**
+     * Converts the image to a byte array
+     * @param input - The image to convert
+     * @return The array of bytes
+     */
     private static byte[] toByteArray(BufferedImage input)
     {
         // Get raw image data
@@ -128,6 +161,12 @@ public class Thresholder
         return byteBuffer.getData(0);
     }
     
+    /**
+     * Converts each pixel to either a 0 or 255
+     * @param image - The image to convert
+     * @param threshold - The threshold for determining if a pixel is black or white
+     * @return The black and white image
+     */
     public static BufferedImage toBitmap(BufferedImage image, int threshold) 
     {
         BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
@@ -150,6 +189,12 @@ public class Thresholder
         return result;
     }
     
+    /**
+     * Gets the result of anding two images together
+     * @param one - The first image
+     * @param two - The second image
+     * @return
+     */
     public static BufferedImage andImage(BufferedImage one, BufferedImage two)
     {
         int width;

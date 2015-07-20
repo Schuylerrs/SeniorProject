@@ -21,18 +21,35 @@ public class KnnClassifier extends Classifier implements Serializable
 {
     private Instances trainingData;
     
+    /**
+     * Builds the classifier based on an initial training set
+     * @param data - Data used for training
+     * @throws Exception
+     */
     @Override
     public void buildClassifier(Instances data) throws Exception 
     {
         trainingData = data;
     }
     
+    /**
+     * A default classify that calls the other classifyer with the k value of 3
+     * @param instance - The instance to classify
+     * @return A double value representing the letter in the image
+     */
     @Override
     public double classifyInstance(Instance instance)
     {
         return this.classifyInstance(instance, 3);
     }
     
+    /**
+     * Looks at the k closest known instances to try and guess which letter is in
+     * an image.
+     * @param instance - The instance to classify
+     * @param k - The number of neighbors to look at when determining the class
+     * @return A double value representing the letter in the image
+     */
     public double classifyInstance(Instance instance, int k)
     {
         int size = trainingData.numInstances();
@@ -58,6 +75,12 @@ public class KnnClassifier extends Classifier implements Serializable
         return findMostCommon(neighbors, k);
     }
     
+    /**
+     * Find the most common class from a list of neighbors
+     * @param neighbors - A list of neighbors and distances
+     * @param k - The number of neighbors to look at in order to guess
+     * @return The most common class among the k nearest neighbors
+     */
     private double findMostCommon(Map<Float, Instance> neighbors, int k)
     {
         int count = 0;
@@ -85,6 +108,10 @@ public class KnnClassifier extends Classifier implements Serializable
         return classGuess;
     }
 
+    /**
+     * Adds new instances to the training data
+     * @param newData - The new instances to add to the training data
+     */
     public void addInstances(Instances newData)
     {
         for (int i = 0; i < newData.numInstances(); i++) 

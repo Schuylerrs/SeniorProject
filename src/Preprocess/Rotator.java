@@ -11,12 +11,18 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 
 /**
- *
+ * Used to rotate the image to the proper angle
  * @author Schuyler
  */
 public class Rotator 
 {
-    @SuppressWarnings("empty-statement")
+
+    /**
+     * Automatically attempts to rotate the image to be upright by looking for the
+     * angle that provides the most empty lines of pixels.
+     * @param input
+     * @return
+     */
     public static BufferedImage autoSkew(BufferedImage input)
     {
         double bestAngle = 0;
@@ -26,10 +32,14 @@ public class Rotator
         double i;
         double min;
         double max;
-        double[] range = {45.0, 5.0, 1.0}; 
+        // The three different ranges
+        double[] range = {45.0, 5.0, 1.0};
+        // The amount to change the image by
         double[] diff = {10.0, 1.0, 0.1};
         double change;
         
+        // Finds the best angle within 10 degrees, then 1 degree, then 0.1 much 
+        // like a binary search. Doing this dramatically reduces processing time
         for (int k = 0; k < 3; k++)
         {
             min = bestAngle - range[k];
@@ -53,6 +63,12 @@ public class Rotator
         return rotateImage(input, bestAngle);
     }
     
+    /**
+     * Rotates the image to a given angle
+     * @param input - The image to rotate
+     * @param angle - The angel to rotate the image to
+     * @return The rotated image
+     */
     public static BufferedImage rotateImage(BufferedImage input, double angle)
     {
         // Rotation information
@@ -69,6 +85,11 @@ public class Rotator
         return result;
     }
     
+    /**
+     * Gets the number of empty rows in a given image.
+     * @param input - The image to check
+     * @return The number of rows that did not contain a black pixel
+     */
     private static int getRows(BufferedImage input)
     {
         int count = 0;

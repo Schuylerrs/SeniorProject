@@ -17,8 +17,15 @@ import java.util.List;
  */
 public class Page 
 {
-    private List<Line> lines;
+    private final List<Line> lines;
     
+    /**
+     * Takes the page and splits it into lines. Once it has been completely split
+     * the page retrieves the sizes of each of the letters to calculate the mean
+     * and standard deviation. These are used to guess which letters should be
+     * split up.
+     * @param input - An image of the entire page
+     */
     public Page(BufferedImage input)
     {
         lines = new ArrayList<>();
@@ -59,11 +66,10 @@ public class Page
         }
     }
     
-    public void addLine(Line word) 
-    {
-        lines.add(word);
-    }
-    
+    /**
+     * Adds up the number of letters from each line
+     * @return The total number of letters on the page
+     */
     public int getLetterCount()
     {
         int count = 0;
@@ -74,6 +80,10 @@ public class Page
         return count;
     }
     
+    /**
+     * Collects all of the letters from each line and aggregates them into a list
+     * @return A list of the letters stored as BufferedImages in a List
+     */
     public List<BufferedImage> getLetters()
     {
         List<BufferedImage> letters = new ArrayList<>();
@@ -85,12 +95,12 @@ public class Page
         
         return letters;
     }
-        
-    public Line getLine(int index)
-    {
-        return lines.get(index);
-    }
     
+    /**
+     * Collects the output of read from each line and adds a newline at the end
+     * of each line.
+     * @return The full text of the page as a string
+     */
     public String read()
     {
         String text = "";

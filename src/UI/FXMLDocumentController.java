@@ -40,6 +40,7 @@ public class FXMLDocumentController implements Initializable
     private BufferedImage srcImage = null;
     private BufferedImage processedImage = null;
     
+    // UI parts
     @FXML
     public ImageView imgBefore;
     public ImageView imgAfter;
@@ -50,6 +51,7 @@ public class FXMLDocumentController implements Initializable
     public Label lblTime;
     public Label lblCount;
     
+    // When the user clicks on open
     @FXML
     private void clickOpen(ActionEvent event) 
     {
@@ -58,6 +60,7 @@ public class FXMLDocumentController implements Initializable
             File srcFile = Prompt.getFile("Choose Image");
             srcImage = ImageIO.read(srcFile);
             imgBefore.setImage(new Image(srcFile.toURI().toString()));
+            
         } 
         catch (Exception ex) 
         {
@@ -207,6 +210,11 @@ public class FXMLDocumentController implements Initializable
         txtPreview.setText("Classifyer Loader");
     }
     
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {

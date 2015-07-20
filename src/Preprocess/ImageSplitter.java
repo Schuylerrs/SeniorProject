@@ -3,8 +3,19 @@ package Preprocess;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
+/**
+ *
+ * @author Schuyler
+ */
 public class ImageSplitter 
 {
+
+    /**
+     * Splits an image into equal sized chunks
+     * @param image - The image to split
+     * @param divs - The number of rows/cols to split the image into
+     * @return An array of the split up images
+     */
     public static BufferedImage[] splitImage(BufferedImage image, int divs)
     {
         int chunks = divs * divs;
@@ -31,6 +42,12 @@ public class ImageSplitter
         return imgs;
     }
     
+    /**
+     * Merges an image that has been split up
+     * @param inputImages - An array of images that has been split up
+     * @param divs - The number of rows/cols that the image was split into
+     * @return An image that was built by merging the other parts
+     */
     public static BufferedImage mergeImages(BufferedImage[] inputImages, int divs)
     {
         int chunkWidth;

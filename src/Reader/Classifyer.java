@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,13 +26,15 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 /**
- *
+ * Used when reading the text fro the image
  * @author Schuyler
  */
-public class Classifyer implements Serializable {
-    
+public class Classifyer  {
+    // If the learner is trained or not
     private static boolean trained;
+    // The part that does the actual heavy lifting
     private static KnnClassifier knn;
+    // Used in training the learner and in intrepreting the learner's output
     private static final String[] letterVal = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                                                 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
                                                 "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", 
@@ -42,8 +43,15 @@ public class Classifyer implements Serializable {
                                                 "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", 
                                                 "9", "0", ".", "?", "#", "@", "!", "$", "%", "(", 
                                                 ":", ")", ";", "\'", "&", "\"", "\""};
+    // One attribute for each pixle plus the height and the width times two for 
+    // histograms of the height/width and the stroke count for height/width
     private static final int ATT_COUNT = 512 + ((32 + 16) * 2);
     
+    /**
+     * Takes in an image with 24 of each letter in the order specified by letterVal
+     * @param images - The images containing the letters
+     * @throws Exception
+     */   
     public static void trainClassifyer(List<BufferedImage> images) throws Exception
     {
         Instances trainingData = ImageListToInstances(images);
@@ -53,6 +61,11 @@ public class Classifyer implements Serializable {
         trained = true;
     }
     
+    /**
+     * Converts a list of images into instances
+     * @param images
+     * @return 
+     */
     private static Instances ImageListToInstances(List<BufferedImage> images)
     {
         int letterCount = 0;
@@ -87,6 +100,11 @@ public class Classifyer implements Serializable {
         return trainingData;
     }
     
+    /**
+     * Resizes the image to a standard size
+     * @param input - The image to resize
+     * @return The resized (16 X 32) image
+     */
     private static BufferedImage resize(BufferedImage input)
     {
         int Y_SIZE = 32;
@@ -100,6 +118,14 @@ public class Classifyer implements Serializable {
         
         return newImage;
     }
+    
+    /**
+     * Converts the image into an instance by taking the value of each pixel, the
+     * number of black pixels in each row/col of the image, and the number of strokes
+     * on each row/col.
+     * @param image - The image to convert
+     * @return The resulting Instance
+     */
     private static Instance imageToInstance(BufferedImage image)
     {
         BufferedImage newImage = resize(image);
@@ -143,6 +169,8 @@ public class Classifyer implements Serializable {
         
         int offset = 512 + height + width;
         
+        // Extra weight added to the number of strokes because it is less likely
+        // to be effected by noise in the image
         // Strokes across the x
         int[] rowPixels = new int[width * 3];
         for (int i = 0; i < height; i++)
@@ -164,6 +192,12 @@ public class Classifyer implements Serializable {
         return imageInstance;
     }
     
+    /**
+     * Gets the number of times that a line in the character crosses a specific
+     * row/col of the picture.
+     * @param pixels - The row/col to check
+     * @return The number of strokes found (x2)
+     */
     private static int getStrokes(int[] pixels)
     {
         int strokes = 0;
@@ -179,6 +213,11 @@ public class Classifyer implements Serializable {
         return strokes;
     }
     
+    /**
+     * Takes in an image and turns it into a string.
+     * @param image - The image of a letter
+     * @return The string that it guessed
+     */
     public static String clasifyImage(BufferedImage image)
     {
         if (trained)
@@ -195,7 +234,12 @@ public class Classifyer implements Serializable {
         else
             return "?";
     }
-    
+
+    /**
+     * Adds instance to the set of instances used to classify letters.
+     * @param images - A list of images containing individual letters.
+     * @throws Exception 
+     */
     public static void addData(List<BufferedImage> images) throws Exception
     {        
         if (trained)
@@ -209,6 +253,9 @@ public class Classifyer implements Serializable {
         }
     }
     
+    /**
+     * Saves the knn classifier to the users home directory. 
+     */
     public static void save()
     {
         // Don't save it there isn't anything to save
@@ -230,6 +277,9 @@ public class Classifyer implements Serializable {
         }
     }
     
+    /**
+     * Loads the classifier from the users home directory. 
+     */
     public static void load()
     {
         try {
@@ -241,7 +291,7 @@ public class Classifyer implements Serializable {
             trained = true;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Classifyer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+       } catch (IOException ex) {
             Logger.getLogger(Classifyer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Classifyer.class.getName()).log(Level.SEVERE, null, ex);
